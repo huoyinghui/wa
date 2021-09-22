@@ -57,19 +57,25 @@ func subtract(value js.Value, args []js.Value) interface{} {
 }
 
 func ex(value js.Value, args []js.Value) interface{} {
+	fmt.Println("ex!")
+	fmt.Printf("value:%v\n", value)
+	fmt.Printf("args:%v\n", args)
 	cmdName := ""
 	argsStr := make([]string, 0)
 	for idx, arg := range args {
 		if idx == 0 {
-			cmdName = arg.String()t
+			cmdName = arg.String()
 			continue
 		}
 		argsStr = append(argsStr, arg.String())
 	}
 	cmd := exec.Command(cmdName, argsStr...)
-	err := cmd.Run()
+	//err := cmd.Run()
+	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Errorf("err:%v", err)
+		return nil
 	}
+	fmt.Printf("out:%v", string(out))
 	return nil
 }
