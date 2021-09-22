@@ -10,6 +10,7 @@ func registerCallbacks() {
 	js.Global().Set("callBack", js.FuncOf(callBack))
 	js.Global().Set("add", js.FuncOf(add))
 	js.Global().Set("subtract", js.FuncOf(subtract))
+	js.Global().Set("ex", js.FuncOf(ex))
 }
 
 func main() {

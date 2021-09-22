@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os/exec"
 	"syscall/js"
 )
 
@@ -52,5 +53,23 @@ func subtract(value js.Value, args []js.Value) interface{} {
 	}
 	js.Global().Set("output", js.ValueOf(args[0].Int()-args[1].Int()))
 	fmt.Printf("ret:%v\n", js.ValueOf(args[0].Int() -args[1].Int()).String())
+	return nil
+}
+
+func ex(value js.Value, args []js.Value) interface{} {
+	cmdName := ""
+	argsStr := make([]string, 0)
+	for idx, arg := range args {
+		if idx == 0 {
+			cmdName = arg.String()t
+			continue
+		}
+		argsStr = append(argsStr, arg.String())
+	}
+	cmd := exec.Command(cmdName, argsStr...)
+	err := cmd.Run()
+	if err != nil {
+		fmt.Errorf("err:%v", err)
+	}
 	return nil
 }
